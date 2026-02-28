@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.py[cod]
+*$py.class
+*.db
+venv/
+.pytest_cache/
+flask_data/
+postgres_data/
+instance/
+.idea/

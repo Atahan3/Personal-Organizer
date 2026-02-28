@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div style="max-width: 850px; margin: 0 auto; padding: 16px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom: 12px;">
+    <h2 style="margin:0;">Edit Wishlist Item</h2>
+    <a href="{{ url_for('wishlist.list_and_add_wishlist') }}"
+       style="text-decoration:none; padding:8px 10px; border-radius:10px; border:1px solid #ddd;">
+      ← Back
+    </a>
+  </div>
+
+  {# Flash mesajlar #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div style="margin: 12px 0;">
+        {% for category, message in messages %}
+          <div style="padding:10px 12px; border-radius:10px; margin-bottom:8px;
+                      border:1px solid #ddd; background:#fafafa;">
+            <strong style="text-transform:capitalize;">{{ category }}</strong> — {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div style="border:1px solid #e5e5e5; border-radius:14px; padding:14px; background:#fff;">
+    <form method="post" action="{{ url_for('wishlist.edit_wishlist', item_id=item.id) }}"
+          style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">Title *</label>
+        <input name="title" required value="{{ item.title }}"
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">URL *</label>
+        <input name="url" required value="{{ item.url }}"
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">Price (optional)</label>
+        <input name="price" inputmode="decimal" value="{{ item.price if item.price is not none else '' }}"
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">Note (optional)</label>
+        <input name="note" value="{{ item.note if item.note else '' }}"
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 2; display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-top:6px;">
+        <form method="post" action="{{ url_for('wishlist.toggle_wishlist', item_id=item.id) }}"></form>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="{{ url_for('wishlist.list_and_add_wishlist') }}"
+             style="padding:10px 14px; border-radius:10px; border:1px solid #ddd; text-decoration:none; color:#111;">
+            Cancel
+          </a>
+          <button type="submit"
+                  style="padding:10px 14px; border-radius:10px; border:1px solid #111; background:#111; color:#fff; cursor:pointer;">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

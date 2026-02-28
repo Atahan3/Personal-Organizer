@@ -1,0 +1,8 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% if session.user_id %}
+        You are registered as {{ user.username }}. <a href="/logout">Logout</a> <a href="/profile">Profile</a>
+    {% else %}
+        You are not registered. <a href="/login">Login</a>.
+    {% endif %}
+{% endblock %}

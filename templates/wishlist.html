@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div style="max-width: 950px; margin: 0 auto; padding: 16px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom: 12px;">
+    <h2 style="margin:0;">Wishlist</h2>
+  </div>
+
+  {# Flash mesajlar #}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div style="margin: 12px 0;">
+        {% for category, message in messages %}
+          <div style="padding:10px 12px; border-radius:10px; margin-bottom:8px;
+                      border:1px solid #ddd; background:#fafafa;">
+            <strong style="text-transform:capitalize;">{{ category }}</strong> — {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  {# Add form #}
+  <div style="border:1px solid #e5e5e5; border-radius:14px; padding:14px; background:#fff; margin-bottom:16px;">
+    <form method="post" action="{{ url_for('wishlist.list_and_add_wishlist') }}"
+          style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">Title *</label>
+        <input name="title" required placeholder="e.g., AirPods Pro"
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">URL *</label>
+        <input name="url" required placeholder="https://..."
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">Price (optional)</label>
+        <input name="price" inputmode="decimal" placeholder="e.g., 1999.99"
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 1;">
+        <label style="display:block; font-size: 13px; margin-bottom:6px;">Note (optional)</label>
+        <input name="note" placeholder="e.g., black color / wait for discount"
+               style="width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:10px;" />
+      </div>
+
+      <div style="grid-column: span 2; display:flex; justify-content:flex-end; gap:10px;">
+        <button type="submit"
+                style="padding:10px 14px; border-radius:10px; border:1px solid #111; background:#111; color:#fff; cursor:pointer;">
+          Add
+        </button>
+      </div>
+    </form>
+  </div>
+
+  {# List #}
+  {% if not items %}
+    <div style="padding:14px; border:1px dashed #ddd; border-radius:14px; background:#fff;">
+      No items yet.
+    </div>
+  {% else %}
+    <div style="display:grid; grid-template-columns: 1fr; gap:12px;">
+      {% for item in items %}
+        <div style="border:1px solid #e5e5e5; border-radius:14px; padding:14px; background:#fff;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+            <div style="min-width:0;">
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <strong style="font-size:16px; word-break:break-word;">{{ item.title }}</strong>
+                <span style="font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid #ddd; background:#fafafa;">
+                  {{ "✅ Purchased" if item.purchased else "🕒 Not purchased" }}
+                </span>
+              </div>
+
+              <div style="margin-top:8px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer"
+                   style="text-decoration:none; padding:6px 10px; border-radius:10px; border:1px solid #ddd;">
+                  Open link
+                </a>
+
+                {% if item.price is not none %}
+                  <span style="font-size:13px; color:#333;">Price: <strong>{{ item.price }}</strong></span>
+                {% endif %}
+              </div>
+
+              {% if item.note %}
+                <p style="margin:10px 0 0 0; color:#444; word-break:break-word;">{{ item.note }}</p>
+              {% endif %}
+            </div>
+
+            <div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+              <form method="post" action="{{ url_for('wishlist.toggle_wishlist', item_id=item.id) }}">
+                <button type="submit"
+                        style="padding:8px 10px; border-radius:10px; border:1px solid #ddd; background:#fafafa; cursor:pointer;">
+                  {{ "Unpurchase" if item.purchased else "Purchase" }}
+                </button>
+              </form>
+
+              <a href="{{ url_for('wishlist.edit_wishlist', item_id=item.id) }}"
+                 style="padding:8px 10px; border-radius:10px; border:1px solid #ddd; background:#fff; text-decoration:none; color:#111;">
+                Edit
+              </a>
+
+              <form method="post" action="{{ url_for('wishlist.delete_item', item_id=item.id) }}"
+                    onsubmit="return confirm('Delete this item?');">
+                <button type="submit"
+                        style="padding:8px 10px; border-radius:10px; border:1px solid #d33; background:#fff; color:#d33; cursor:pointer;">
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div style="margin-top:10px; font-size:12px; color:#777;">
+            Added: {{ item.created_at }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

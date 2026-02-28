@@ -1,0 +1,6 @@
+Werkzeug~=3.1.5
+Flask~=3.1.2
+flask-session
+flask-sqlalchemy
+psycopg2-binary
+gunicorn

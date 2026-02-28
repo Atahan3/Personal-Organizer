@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h3>Register</h3>
+
+<form method="post">
+  <input type="text" name="username" placeholder="username" required>
+  <input type="password" name="password" placeholder="password" required>
+  <button type="submit">Register</button>
+</form>
+
+<p>Already have an account? <a href="/login">Login</a></p>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+
+    <h2>Welcome {{ user.username }}</h2>
+
+    <div style="margin-top: 15px;">
+        <a href="{{ url_for('wishlist.list_and_add_wishlist') }}">
+            Go to Wishlist
+        </a>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <a href="{{ url_for('profile') }}">Profile</a>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+</body>
+</html>
