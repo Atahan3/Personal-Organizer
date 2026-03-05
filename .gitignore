@@ -9,3 +9,4 @@ flask_data/
 postgres_data/
 instance/
 .idea/
+flask_session/

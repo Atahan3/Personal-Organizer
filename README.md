@@ -64,7 +64,7 @@ cd Personal-Organizer
 
 [ ] Task Board: A simple To-Do list to manage daily activities.
 
-[ ] Daily Journal: A private area to write and save personal notes.
+[x] Daily Journal: A private area to write and save personal notes.
 
 ---
 ## License

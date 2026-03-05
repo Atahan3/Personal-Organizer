@@ -22,4 +22,12 @@ class WishlistItem(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
 
 
+class JournalEntry(db.Model):
+    __tablename__ = "journal_entries"
 
+    id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(200), nullable = False)
+    mood = db.Column(db.String(50), nullable = True)
+    content = db.Column(db.String, nullable = False)
+    created_at = db.Column(db.DateTime(timezone=True), default = lambda: datetime.now(timezone.utc))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)

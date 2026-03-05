@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div style="max-width: 850px; margin: 0 auto; padding: 16px; font-family: sans-serif;">
+    <h2 style="margin-bottom: 20px; font-weight: 600;">My Journal</h2>
+
+    <div style="border: 1px solid #e5e5e5; border-radius: 14px; padding: 16px; background: #fff; margin-bottom: 24px;">
+        <form method="post">
+            <input name="title" required placeholder="Entry Title" 
+                   style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 12px; font-size: 16px; font-weight: bold;">
+            
+            <textarea name="content" required placeholder="How was your day?" rows="4"
+                      style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; margin-bottom: 12px; resize: vertical;"></textarea>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <select name="mood" style="padding: 8px; border-radius: 8px; border: 1px solid #ddd; background: #f9f9f9;">
+                    <option value="Happy">😊 Happy</option>
+                    <option value="Normal" selected>😐 Normal</option>
+                    <option value="Tired">😫 Tired</option>
+                    <option value="Sad">😢 Sad</option>
+                </select>
+                <button type="submit" style="padding: 10px 20px; border-radius: 10px; border: none; background: #111; color: #fff; cursor: pointer; font-weight: 500;">Save Entry</button>
+            </div>
+        </form>
+    </div>
+
+    <div style="display: grid; gap: 16px;">
+        {% for entry in entries %}
+        <div style="border: 1px solid #e5e5e5; border-radius: 14px; padding: 16px; background: #fff;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                    <span style="font-size: 12px; color: #888;">{{ entry.created_at.strftime('%B %d, %Y') }}</span>
+                    <h3 style="margin: 4px 0; font-size: 18px;">{{ entry.title }} <span style="font-size: 14px; font-weight: normal; margin-left: 8px;">{{ entry.mood }}</span></h3>
+                    <p style="color: #444; line-height: 1.5; white-space: pre-wrap;">{{ entry.content }}</p>
+                </div>
+                <form method="post" action="{{ url_for('journal.delete_entry', entry_id=entry.id) }}" onsubmit="return confirm('Delete this entry?');">
+                    <button type="submit" style="background: none; border: none; color: #d33; cursor: pointer; font-size: 13px;">Delete</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
