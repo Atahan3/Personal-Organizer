@@ -62,7 +62,7 @@ cd Personal-Organizer
 
 [x] Wishlist Manager: Store and track product links from different websites.
 
-[ ] Task Board: A simple To-Do list to manage daily activities.
+[x] Task Board: A simple To-Do list to manage daily activities.
 
 [x] Daily Journal: A private area to write and save personal notes.
 

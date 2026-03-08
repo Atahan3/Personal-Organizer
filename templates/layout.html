@@ -94,6 +94,7 @@
             {% if session.user_id %}
                 <a href="{{ url_for('wishlist.list_and_add_wishlist') }}">Wishlist</a>
                 <a href="{{ url_for('journal.list_and_add_journal') }}">Journal</a>
+                <a href="{{ url_for('tasks.new_task') }}">Tasks</a>
                 <a href="/profile">Profile</a>
                 <a href="/logout" class="nav-btn">Logout</a>
             {% else %}

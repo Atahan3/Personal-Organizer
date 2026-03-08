@@ -13,10 +13,11 @@
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+
         <div style="background: white; padding: 20px; border-radius: 14px; border: 1px solid #e5e5e5; transition: 0.2s;">
             <h3 style="margin: 0 0 8px 0;">🎁 Wishlist</h3>
             <p style="margin: 0 0 16px 0; color: #666; font-size: 14px;">Manage the things you want to buy.</p>
-            <a href="{{ url_for('wishlist.list_and_add_wishlist') }}" style="display: inline-block; padding: 8px 16px; border-radius: 8px; border: 1px solid #111; color: #111; text-decoration: none; font-size: 13px; font-weight: 600;">Go to Wishlist &rarr;</a>
+            <a href="{{ url_for('wishlist.list_and_add_wishlist') }}" style="display: inline-block; padding: 8px 16px; border-radius: 8px; background: #111; color: white; text-decoration: none; font-size: 13px; font-weight: 600;">Go to Wishlist &rarr;</a>
         </div>
 
         <div style="background: white; padding: 20px; border-radius: 14px; border: 1px solid #e5e5e5; transition: 0.2s;">
@@ -24,6 +25,13 @@
             <p style="margin: 0 0 16px 0; color: #666; font-size: 14px;">Track your mood and daily thoughts.</p>
             <a href="{{ url_for('journal.list_and_add_journal') }}" style="display: inline-block; padding: 8px 16px; border-radius: 8px; background: #111; color: white; text-decoration: none; font-size: 13px; font-weight: 600;">Open Journal &rarr;</a>
         </div>
+
+        <div style="background: white; padding: 20px; border-radius: 14px; border: 1px solid #e5e5e5; transition: 0.2s;">
+            <h3 style="margin: 0 0 8px 0;">✅ Tasks</h3>
+            <p style="margin: 0 0 16px 0; color: #666; font-size: 14px;">Organize your life and prioritize goals.</p>
+            <a href="{{ url_for('tasks.new_task') }}" style="display: inline-block; padding: 8px 16px; border-radius: 8px; background: #111; color: white; text-decoration: none; font-size: 13px; font-weight: 600;">Manage Tasks &rarr;</a>
+        </div>
+
     </div>
 </div>
 {% endblock %}
